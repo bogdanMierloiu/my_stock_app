@@ -18,7 +18,7 @@ public class ConstructionGelResponse {
 
     private String productBrand;
 
-    private Double quantity;
+    private Integer quantity;
 
     private Double price;
 

@@ -3,6 +3,7 @@ package com.bogdyMusicLover.service;
 import com.bogdyMusicLover.dto.ConstructionGelRequest;
 import com.bogdyMusicLover.dto.ConstructionGelResponse;
 import com.bogdyMusicLover.entity.ConstructionGel;
+import com.bogdyMusicLover.exception.NotFoundException;
 import com.bogdyMusicLover.mapper.ConstructionGelMapper;
 import com.bogdyMusicLover.repository.ConstructionGelRepo;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,8 @@ public class ConstructionGelService implements CrudOperations<ConstructionGelReq
 
     @Override
     public ConstructionGelResponse findById(Long id) {
-        return null;
+        return constructionGelMapper.mapResponseFromEntity(constructionGelRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("Construction gel not found!")));
     }
 
     @Override

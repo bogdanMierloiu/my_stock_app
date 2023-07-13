@@ -1,0 +1,15 @@
+
+html, body {
+    height: 100%;
+}
+
+.content-wrap {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 63px;
+    padding-bottom: 2rem;
+    min-height: 100%;
+    margin-bottom: 20px;
+}

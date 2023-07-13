@@ -1,7 +1,5 @@
 package com.bogdyMusicLover.dto;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,20 +11,16 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConstructionGelRequest {
+public class ConstructionGelResponse {
 
     private Long id;
 
-    @NotNull
     private String productBrand;
 
-    @NotNull
     private Integer quantity;
 
-    @NotNull
     private Double price;
 
-    @NotNull
     private LocalDate purchaseDate;
 
     private LocalDate consumptionDate;

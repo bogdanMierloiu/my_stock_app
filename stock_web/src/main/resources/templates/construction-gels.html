@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Gels</title>
+    <link th:href="@{/css/style.css}" th:rel="stylesheet">
+</head>
+<body>
+
+
+<div class="content-wrap">
+    <div style="display:flex">
+        <!-- Tabel -->
+        <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: flex-start; margin-left: auto; width:100%;">
+            <div th:if="${#lists.isEmpty(gels)}">
+                <h5>Nu exista inregistrari</h5>
+            </div>
+            <table th:if="${not #lists.isEmpty(gels)}" class="table table-hover text-center">
+                <thead>
+                <tr>
+                    <th colspan="4" style="text-align: center;" class="text-center">
+                        <span>Geluri de constructie</span>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Marca</span>
+                    </td>
+                    <td>
+                        <span>Cantitate</span>
+                    </td>
+                    <td>
+                        <span>Pret</span>
+                    </td>
+                    <td>
+                        <span>Data achizitie</span>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="gel: ${gels}">
+                    <td>
+                        <span th:text="${gel.productBrand}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${gel.quantity}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${gel.price + ' lei'}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${gel.purchaseDate}"></span>
+                    </td>
+                    <!--                    <td>-->
+                    <!--                        <form th:action="@{/request/admin/show-subunits/{policeStructureId}(policeStructureId=${structure.id})}">-->
+                    <!--                            <input type="hidden" name="policeStructureId" th:value="${structure.id}">-->
+                    <!--                            <button class="btn btn-success btn-sm" type="submit">Afișează subunitățile de poliție-->
+                    <!--                            </button>-->
+                    <!--                        </form>-->
+                    <!--                    </td>-->
+                    <!--                    <td>-->
+                    <!--                        <form th:action="@{/request/show-requests-for-police-structure/{policeStructureId}(policeStructureId=${structure.id})}">-->
+                    <!--                            <input type="hidden" name="policeStructureId" th:value="${structure.id}">-->
+                    <!--                            <button class="btn btn-success btn-sm" type="submit">Afișează solicitările</button>-->
+                    <!--                        </form>-->
+                    <!--                    </td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

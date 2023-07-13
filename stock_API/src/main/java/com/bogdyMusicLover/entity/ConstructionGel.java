@@ -25,7 +25,7 @@ public class ConstructionGel {
     private String productBrand;
 
     @Column(nullable = false)
-    private Double quantity;
+    private Integer quantity;
 
     @Column(nullable = false)
     private Double price;
