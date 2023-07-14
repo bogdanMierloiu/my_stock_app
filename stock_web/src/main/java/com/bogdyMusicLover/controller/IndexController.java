@@ -14,4 +14,9 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/menu")
+    public String showMenuPage(){
+        return "menu";
+    }
+
 }
