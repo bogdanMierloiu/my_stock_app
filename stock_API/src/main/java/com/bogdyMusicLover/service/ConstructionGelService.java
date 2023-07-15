@@ -10,11 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ConstructionGelService implements CrudOperations<ConstructionGelRequest, ConstructionGelResponse> {
+public class ConstructionGelService implements CrudServiceOperations<ConstructionGelRequest, ConstructionGelResponse> {
 
     private final ConstructionGelRepo constructionGelRepo;
 
@@ -37,8 +38,18 @@ public class ConstructionGelService implements CrudOperations<ConstructionGelReq
 
     @Override
     @Transactional
-    public void update(ConstructionGelRequest request) {
+    public void update(ConstructionGelRequest request) throws NotFoundException {
+        ConstructionGel constructionGel = getGelById(request.getId());
 
+        constructionGel.setProductBrand(request.getProductBrand() != null ?
+                request.getProductBrand() : constructionGel.getProductBrand());
+        constructionGel.setQuantity(request.getQuantity() != null ?
+                request.getQuantity() : constructionGel.getQuantity());
+        constructionGel.setPrice(request.getPrice() != null ?
+                request.getPrice() : constructionGel.getPrice());
+        constructionGel.setPurchaseDate(request.getPurchaseDate() != null ?
+                request.getPurchaseDate() : constructionGel.getPurchaseDate());
+        constructionGelRepo.save(constructionGel);
     }
 
     @Override
@@ -47,15 +58,34 @@ public class ConstructionGelService implements CrudOperations<ConstructionGelReq
     }
 
     @Override
-    public ConstructionGelResponse findById(Long id) {
-        return constructionGelMapper.mapResponseFromEntity(constructionGelRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException("Construction gel not found!")));
+    public List<ConstructionGelResponse> getAllAvailable() {
+        return constructionGelMapper.mapListResponsesFromEntity(constructionGelRepo.getConstructionGelsAvailable());
+    }
+
+    @Transactional
+    @Override
+    public void consumed(Long gelId, LocalDate consumptionDate) throws NotFoundException {
+        ConstructionGel constructionGel = getGelById(gelId);
+        constructionGel.setConsumptionDate(consumptionDate);
+        constructionGel.setIsAvailable(false);
+        constructionGelRepo.save(constructionGel);
+    }
+
+    @Override
+    public ConstructionGelResponse findById(Long id) throws NotFoundException {
+        return constructionGelMapper.mapResponseFromEntity(getGelById(id));
     }
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
+    public void deleteById(Long id) throws NotFoundException {
+        ConstructionGel constructionGel = getGelById(id);
+        constructionGelRepo.delete(constructionGel);
+    }
 
+    private ConstructionGel getGelById(Long id) throws NotFoundException {
+        return constructionGelRepo.findById(id).orElseThrow(
+                () -> new NotFoundException("Construction gel not found!"));
     }
 
 

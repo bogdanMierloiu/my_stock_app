@@ -1,5 +1,6 @@
 package com.bogdyMusicLover.service;
 
+import com.bogdyMusicLover.dto.ConstructionGelRequest;
 import com.bogdyMusicLover.dto.ConstructionGelResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,24 @@ public class ConstructionGelService {
                 .bodyToFlux(ConstructionGelResponse.class);
         return responseFlux.collectList().block();
     }
+
+    public List<ConstructionGelResponse> getAllAvailable() {
+        Flux<ConstructionGelResponse> responseFlux = webClientBuilder.build().get()
+                .uri("lb://stock-api/api/construction-gel/all-available-gels")
+                .retrieve()
+                .bodyToFlux(ConstructionGelResponse.class);
+        return responseFlux.collectList().block();
+    }
+
+    public void add(ConstructionGelRequest request) {
+        webClientBuilder.build().post()
+                .uri("lb://stock-api/api/construction-gel/add")
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
+
+
 }
 
