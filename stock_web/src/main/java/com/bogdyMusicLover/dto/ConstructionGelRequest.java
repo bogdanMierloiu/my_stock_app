@@ -15,7 +15,7 @@ public class ConstructionGelRequest {
 
     private Long id;
 
-    private String productBrand;
+    private Long productBrandId;
 
     private Integer quantity;
 

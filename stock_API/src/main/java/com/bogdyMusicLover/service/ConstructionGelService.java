@@ -3,9 +3,11 @@ package com.bogdyMusicLover.service;
 import com.bogdyMusicLover.dto.ConstructionGelRequest;
 import com.bogdyMusicLover.dto.ConstructionGelResponse;
 import com.bogdyMusicLover.entity.ConstructionGel;
+import com.bogdyMusicLover.entity.ProductBrand;
 import com.bogdyMusicLover.exception.NotFoundException;
 import com.bogdyMusicLover.mapper.ConstructionGelMapper;
 import com.bogdyMusicLover.repository.ConstructionGelRepo;
+import com.bogdyMusicLover.repository.ProductBrandRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,8 @@ public class ConstructionGelService implements CrudServiceOperations<Constructio
 
     private final ConstructionGelRepo constructionGelRepo;
 
+    private final ProductBrandRepo productBrandRepo;
+
     private final ConstructionGelMapper constructionGelMapper;
 
 
@@ -26,7 +30,7 @@ public class ConstructionGelService implements CrudServiceOperations<Constructio
     @Transactional
     public void add(ConstructionGelRequest gelRequest) {
         ConstructionGel constructionGel = new ConstructionGel();
-        constructionGel.setProductBrand(gelRequest.getProductBrand());
+        constructionGel.setProductBrand(getProductBrandById(gelRequest.getProductBrandId()));
         constructionGel.setQuantity(gelRequest.getQuantity());
         constructionGel.setPrice(gelRequest.getPrice());
         constructionGel.setPurchaseDate(gelRequest.getPurchaseDate());
@@ -41,8 +45,8 @@ public class ConstructionGelService implements CrudServiceOperations<Constructio
     public void update(ConstructionGelRequest request) throws NotFoundException {
         ConstructionGel constructionGel = getGelById(request.getId());
 
-        constructionGel.setProductBrand(request.getProductBrand() != null ?
-                request.getProductBrand() : constructionGel.getProductBrand());
+        constructionGel.setProductBrand(request.getProductBrandId() != null ?
+                getProductBrandById(request.getProductBrandId()) : constructionGel.getProductBrand());
         constructionGel.setQuantity(request.getQuantity() != null ?
                 request.getQuantity() : constructionGel.getQuantity());
         constructionGel.setPrice(request.getPrice() != null ?
@@ -86,6 +90,12 @@ public class ConstructionGelService implements CrudServiceOperations<Constructio
     private ConstructionGel getGelById(Long id) throws NotFoundException {
         return constructionGelRepo.findById(id).orElseThrow(
                 () -> new NotFoundException("Construction gel not found!"));
+    }
+
+    private ProductBrand getProductBrandById(Long id) throws NotFoundException {
+        return productBrandRepo.findById(id).orElseThrow(
+                () -> new NotFoundException("Product brand not found")
+        );
     }
 
 

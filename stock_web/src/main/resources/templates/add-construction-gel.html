@@ -32,7 +32,12 @@
                                 <!-- Elemente din partea stângă -->
                                 <div class="mb-3">
                                     <label for="productBrand" class="form-label">Marca produs:</label>
-                                    <input type="text" id="productBrand" class="form-control" th:field="*{gelRequest.productBrand}" required>
+                                    <select id="productBrand" class="form-select" th:field="*{gelRequest.productBrandId}"
+                                            required>
+                                        <option value="">Selectați marca</option>
+                                        <option th:each="brand : ${brands}" th:value="${brand.id}"
+                                                th:text="${brand.brandName}"></option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="quantity" class="form-label">Cantitate:</label>

@@ -17,9 +17,9 @@ public class ConstructionGelController implements CrudControllerOperations<Const
     private final ConstructionGelService gelService;
     @Override
     @PostMapping("/add")
-    public ResponseEntity<?> add(@RequestBody ConstructionGelRequest gelRequest) {
+    public ResponseEntity<?> add(@RequestBody ConstructionGelRequest request) {
         try {
-            gelService.add(gelRequest);
+            gelService.add(request);
             return ResponseEntity.status(HttpStatus.CREATED).body("Construction gel added successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There was a problem: " + e.getMessage());

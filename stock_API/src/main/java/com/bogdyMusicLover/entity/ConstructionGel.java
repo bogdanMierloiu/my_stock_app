@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,8 +19,8 @@ public class ConstructionGel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String productBrand;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ProductBrand productBrand;
 
     @Column(nullable = false)
     private Integer quantity;

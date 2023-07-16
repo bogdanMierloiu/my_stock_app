@@ -2,6 +2,7 @@ package com.bogdyMusicLover.controller;
 
 import com.bogdyMusicLover.dto.ConstructionGelRequest;
 import com.bogdyMusicLover.service.ConstructionGelService;
+import com.bogdyMusicLover.service.ProductBrandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ public class ConstructionGelController {
 
 
     private final ConstructionGelService constructionGelService;
+    private final ProductBrandService productBrandService;
 
     @GetMapping("/available-gels")
     public String getAllConstructionGelsAvailable(Model model) {
@@ -26,7 +28,7 @@ public class ConstructionGelController {
 
     @GetMapping("/add-form")
     public String addForm(Model model) {
-        model.addAttribute("gels", constructionGelService.getAll());
+        model.addAttribute("brands", productBrandService.getAll());
         model.addAttribute("gelRequest", new ConstructionGelRequest());
         return "add-construction-gel";
     }

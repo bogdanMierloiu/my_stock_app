@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public interface CrudControllerOperations<T> {
 
-    ResponseEntity<?> add(T requesst);
+    ResponseEntity<?> add(T request);
 
     ResponseEntity<?> getAll();
 

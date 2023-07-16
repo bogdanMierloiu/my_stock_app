@@ -8,6 +8,6 @@ public interface DtoMapper<T, R, K> {
 
     K mapResponseFromEntity(R entity);
 
-    List<K> mapListResponsesFromEntity(List<R> entity);
+    List<K> mapListResponsesFromEntity(List<R> entities);
 
 }

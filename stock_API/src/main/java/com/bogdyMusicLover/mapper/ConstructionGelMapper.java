@@ -22,7 +22,7 @@ public class ConstructionGelMapper implements DtoMapper<ConstructionGelRequest,
     public ConstructionGelResponse mapResponseFromEntity(ConstructionGel entity) {
         return ConstructionGelResponse.builder()
                 .id(entity.getId())
-                .productBrand(entity.getProductBrand())
+                .productBrand(entity.getProductBrand().getBrandName())
                 .quantity(entity.getQuantity())
                 .price(entity.getPrice())
                 .purchaseDate(entity.getPurchaseDate())
@@ -32,9 +32,9 @@ public class ConstructionGelMapper implements DtoMapper<ConstructionGelRequest,
     }
 
     @Override
-    public List<ConstructionGelResponse> mapListResponsesFromEntity(List<ConstructionGel> entity) {
+    public List<ConstructionGelResponse> mapListResponsesFromEntity(List<ConstructionGel> entities) {
         List<ConstructionGelResponse> responseList = new ArrayList<>();
-        for (ConstructionGel constructionGel : entity) {
+        for (ConstructionGel constructionGel : entities) {
             ConstructionGelResponse constructionGelResponse = mapResponseFromEntity(constructionGel);
             responseList.add(constructionGelResponse);
         }
